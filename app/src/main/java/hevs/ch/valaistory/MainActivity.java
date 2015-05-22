@@ -1,12 +1,18 @@
 package hevs.ch.valaistory;
 
-import android.support.v4.app.FragmentActivity;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import hevs.ch.Session.NoGPSDialog;
+import hevs.ch.Session.Session;
 
 public class MainActivity extends FragmentActivity {
 
@@ -16,6 +22,11 @@ public class MainActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if (!((LocationManager) getSystemService(LOCATION_SERVICE)).isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            NoGPSDialog.showNoGPSDialog(this);
+        }
+
         setUpMapIfNeeded();
     }
 
@@ -60,6 +71,28 @@ public class MainActivity extends FragmentActivity {
      * This should only be called once and when we are sure that {@link #mMap} is not null.
      */
     private void setUpMap() {
+        mMap.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
+            @Override
+            public void onMyLocationChange(Location location) {
+                Session.setCurrentLocationInfo(location);
+            }
+        });
+
+        Location myLocation;
+        mMap.setMyLocationEnabled(true);
+        mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+        if(Session.hasValidLocation()) {
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(Session.getCurrentLatitude(), Session.getCurrentLongitude())));
+        } else {
+            LatLng latLng = new LatLng(46.28276878, 7.53949642);
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+        }
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(16));
+
+        setUpDummyMarker();
+    }
+
+    private void setUpDummyMarker() {
         mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
     }
 }
