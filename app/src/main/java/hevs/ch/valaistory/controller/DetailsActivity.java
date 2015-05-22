@@ -1,8 +1,7 @@
 package hevs.ch.valaistory.controller;
 
-import android.app.Fragment;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -10,7 +9,7 @@ import android.widget.ImageView;
 
 import hevs.ch.valaistory.R;
 
-public class DetailsActivity extends ActionBarActivity {
+public class DetailsActivity extends FragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
