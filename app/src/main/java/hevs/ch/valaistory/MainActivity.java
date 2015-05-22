@@ -13,6 +13,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import hevs.ch.database.DatabaseAccess;
+import hevs.ch.database.HistoricImage;
 import hevs.ch.session.NoGPSDialog;
 import hevs.ch.session.Session;
 
@@ -102,8 +104,10 @@ public class MainActivity extends FragmentActivity {
     }
 
     private void setUpDummyMarker() {
-        mMap.addMarker(new MarkerOptions().position(new LatLng(46.28276878, 7.53949642)).title("Marker"));
-
+        DatabaseAccess dbAccess = new DatabaseAccess(this);
+        for(HistoricImage i : dbAccess.readAllImage()) {
+            mMap.addMarker(new MarkerOptions().position(new LatLng(i.getLatitude(), i.getLongitude())));
+        }
 
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
