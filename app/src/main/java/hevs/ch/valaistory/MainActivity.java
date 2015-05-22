@@ -9,9 +9,12 @@ import android.support.v4.app.FragmentActivity;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.List;
 
 import hevs.ch.database.DatabaseAccess;
 import hevs.ch.database.HistoricImage;
@@ -21,6 +24,8 @@ import hevs.ch.session.Session;
 public class MainActivity extends FragmentActivity {
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
+    private DatabaseAccess dbAccess;
+    private List<HistoricImage> images;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +35,8 @@ public class MainActivity extends FragmentActivity {
         if (!((LocationManager) getSystemService(LOCATION_SERVICE)).isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             NoGPSDialog.showNoGPSDialog(this);
         }
-
+        dbAccess = new DatabaseAccess(this);
+        dbAccess.writeSomeDummyData();
         setUpMapIfNeeded();
     }
 
@@ -38,6 +44,12 @@ public class MainActivity extends FragmentActivity {
     protected void onResume() {
         super.onResume();
         setUpMapIfNeeded();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Session.setCurrentCameraPosition(mMap.getCameraPosition());
     }
 
     /**
@@ -75,17 +87,17 @@ public class MainActivity extends FragmentActivity {
      * This should only be called once and when we are sure that {@link #mMap} is not null.
      */
     private void setUpMap() {
-        mMap.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
+        mMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
             @Override
-            public void onMyLocationChange(Location location) {
-                Session.setCurrentLocationInfo(location);
+            public void onCameraChange(CameraPosition cameraPosition) {
+                Session.setCurrentCameraPosition(mMap.getCameraPosition());
             }
         });
 
         mMap.setMyLocationEnabled(true);
         mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-        if(Session.hasValidLocation()) {
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(Session.getCurrentLatitude(), Session.getCurrentLongitude())));
+        if(Session.hasValidCameraPosition()) {
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(Session.getCurrentCameraPosition().target));
         } else {
             // Coordinates of Technopole
             LatLng latLng = new LatLng(46.28276878, 7.53949642);
@@ -93,27 +105,27 @@ public class MainActivity extends FragmentActivity {
         }
         mMap.animateCamera(CameraUpdateFactory.zoomTo(16));
 
-        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(Marker marker) {
-                return false;
-            }
-        });
-
         setUpDummyMarker();
     }
 
     private void setUpDummyMarker() {
-        DatabaseAccess dbAccess = new DatabaseAccess(this);
-        for(HistoricImage i : dbAccess.readAllImage()) {
-            mMap.addMarker(new MarkerOptions().position(new LatLng(i.getLatitude(), i.getLongitude())));
+        images = dbAccess.readAllImage();
+
+        for(HistoricImage i : images) {
+            mMap.addMarker(new MarkerOptions().position(new LatLng(i.getLatitude(), i.getLongitude())).draggable(false).visible(true));
         }
 
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
-                Intent i = new Intent(getApplicationContext(), TestParseXMLActivity.class); // <<<<---------
-                startActivity(i);
+                for (HistoricImage img : images) {
+                    if(img.getLatitude() == marker.getPosition().latitude && img.getLongitude() == marker.getPosition().longitude) {
+                        Intent i = new Intent(getApplicationContext(), TestParseXMLActivity.class);
+                        i.putExtra("imageUrl", img.getUrl());
+                        startActivity(i);
+                    }
+                }
+
                 return false;
             }
         });

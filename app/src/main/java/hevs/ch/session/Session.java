@@ -2,7 +2,8 @@ package hevs.ch.session;
 
 
 import android.app.Application;
-import android.location.Location;
+
+import com.google.android.gms.maps.model.CameraPosition;
 
 public class Session extends Application {
 
@@ -10,51 +11,28 @@ public class Session extends Application {
     // Session values - updated as the app runs
     // ---------------------------------------------------
 
-    private static Location currentLocationInfo;
+    private static CameraPosition currentCameraPosition;
 
     // ---------------------------------------------------
 
-
     /**
-     * @return the currentLatitude
+     * Determines whether a valid cameraposition is available
      */
-    public static double getCurrentLatitude() {
-        if (getCurrentLocationInfo() != null) {
-            return getCurrentLocationInfo().getLatitude();
-        } else {
-            return 0;
-        }
+    public static boolean hasValidCameraPosition() {
+        return (getCurrentCameraPosition() != null);
     }
 
     /**
-     * Determines whether a valid location is available
+     * @param currentCameraPosition the latest CameraPosition class
      */
-    public static boolean hasValidLocation() {
-        return (getCurrentLocationInfo() != null && getCurrentLatitude() != 0 && getCurrentLongitude() != 0);
+    public static void setCurrentCameraPosition(CameraPosition currentCameraPosition) {
+        Session.currentCameraPosition = currentCameraPosition;
     }
 
     /**
-     * @return the currentLongitude
+     * @return the CameraPosition class containing latest lat-long information
      */
-    public static double getCurrentLongitude() {
-        if (getCurrentLocationInfo() != null) {
-            return getCurrentLocationInfo().getLongitude();
-        } else {
-            return 0;
-        }
-    }
-
-    /**
-     * @param currentLocationInfo the latest Location class
-     */
-    public static void setCurrentLocationInfo(Location currentLocationInfo) {
-        Session.currentLocationInfo = currentLocationInfo;
-    }
-
-    /**
-     * @return the Location class containing latest lat-long information
-     */
-    private static Location getCurrentLocationInfo() {
-        return currentLocationInfo;
+    public static CameraPosition getCurrentCameraPosition() {
+        return currentCameraPosition;
     }
 }
