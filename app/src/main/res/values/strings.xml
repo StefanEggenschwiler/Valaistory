@@ -4,4 +4,8 @@
     <string name="title_activity_test_parse_xml">TestParseXMLActivity</string>
     <string name="noGps">No GPS Enabled</string>
     <string name="enableGps">Do you want to enable GPS ?</string>
+    <string name="title_activity_details">DetailsActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
 </resources>

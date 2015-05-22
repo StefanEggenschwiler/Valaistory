@@ -28,9 +28,8 @@
 
         <activity
             android:name=".MainActivity"
-            android:label="@string/title_activity_main"
             android:configChanges="orientation"
-            >
+            android:label="@string/title_activity_main" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -44,6 +43,10 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="hevs.ch.valaistory.MainActivity" />
+        </activity>
+        <activity
+            android:name=".controller.DetailsActivity"
+            android:label="@string/title_activity_details" >
         </activity>
     </application>
 
