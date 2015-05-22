@@ -21,6 +21,7 @@ public class SQLHelper extends SQLiteOpenHelper {
     public static final String IMAGE_LONGITUDE = "longitude";
     public static final String IMAGE_LATITUDE = "latitude";
     public static final String IMAGE_URL = "url";
+    public static final String IMAGE_Description = "description";
 
 
     // *************************************************************************
@@ -32,7 +33,8 @@ public class SQLHelper extends SQLiteOpenHelper {
             IMAGE_ID + " INTEGER PRIMARY KEY," +
             IMAGE_LONGITUDE + " DOUBLE, " +
             IMAGE_LATITUDE + " DOUBLE, " +
-            IMAGE_URL + "TEXT" +
+            IMAGE_URL + "TEXT," +
+            IMAGE_Description + "TEXT" +
             ")";
 
     public SQLHelper(Context context, SQLiteDatabase.CursorFactory factory) {

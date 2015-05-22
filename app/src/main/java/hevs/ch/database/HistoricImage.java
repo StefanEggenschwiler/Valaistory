@@ -7,11 +7,20 @@ import android.media.Image;
  */
 public class HistoricImage {
 
-    long id;
-    double latitude;
-    double longitude;
-    String url;
-    Image image;
+    private long id;
+    private double latitude;
+    private double longitude;
+    private String url;
+    private String description;
+    private Image image;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public String getUrl() {
         return url;

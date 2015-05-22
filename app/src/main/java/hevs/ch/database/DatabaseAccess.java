@@ -74,6 +74,7 @@ public class DatabaseAccess {
             image.setLatitude(cursor.getDouble(cursor.getColumnIndex(SQLHelper.IMAGE_LATITUDE)));
             image.setLongitude(cursor.getDouble(cursor.getColumnIndex(SQLHelper.IMAGE_LONGITUDE)));
             image.setUrl(cursor.getString(cursor.getColumnIndex(SQLHelper.IMAGE_URL)));
+            image.setDescription(cursor.getString(cursor.getColumnIndex(SQLHelper.IMAGE_Description)));
 
             images.add(image);
             cursor.moveToNext();
@@ -81,6 +82,48 @@ public class DatabaseAccess {
         cursor.close();
 
         return images;
+    }
+
+    public void writeSomeDummyData(){
+        HistoricImage image1 = new HistoricImage();
+        image1.setDescription("");
+        image1.setUrl("");
+        image1.setLongitude(7.53948838d);
+        image1.setLatitude(46.28252409d);
+
+        writeImage(image1);
+
+        HistoricImage image2 = new HistoricImage();
+        image2.setDescription("");
+        image2.setUrl("");
+        image2.setLongitude(7.53869981d);
+        image2.setLatitude(46.28243882d);
+
+        writeImage(image2);
+
+        HistoricImage image3 = new HistoricImage();
+        image3.setDescription("");
+        image3.setUrl("");
+        image3.setLongitude(7.53873736d);
+        image3.setLatitude(46.28298751d);
+
+        writeImage(image3);
+
+        HistoricImage image4 = new HistoricImage();
+        image4.setDescription("");
+        image4.setUrl("");
+        image4.setLongitude(7.54017502d);
+        image4.setLatitude(46.28292819d);
+
+        writeImage(image4);
+
+        HistoricImage image5 = new HistoricImage();
+        image5.setDescription("");
+        image5.setUrl("");
+        image5.setLongitude(7.54017502d);
+        image5.setLatitude(46.28292819d);
+
+        writeImage(image5);
     }
 
 }
