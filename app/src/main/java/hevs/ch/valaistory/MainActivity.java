@@ -9,6 +9,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import hevs.ch.session.NoGPSDialog;
@@ -78,21 +79,28 @@ public class MainActivity extends FragmentActivity {
             }
         });
 
-        Location myLocation;
         mMap.setMyLocationEnabled(true);
         mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         if(Session.hasValidLocation()) {
             mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(Session.getCurrentLatitude(), Session.getCurrentLongitude())));
         } else {
+            // Coordinates of Technopole
             LatLng latLng = new LatLng(46.28276878, 7.53949642);
             mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         }
         mMap.animateCamera(CameraUpdateFactory.zoomTo(16));
 
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                return false;
+            }
+        });
+
         setUpDummyMarker();
     }
 
     private void setUpDummyMarker() {
-        mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
+        mMap.addMarker(new MarkerOptions().position(new LatLng(46.28276878, 7.53949642)).title("Marker"));
     }
 }
