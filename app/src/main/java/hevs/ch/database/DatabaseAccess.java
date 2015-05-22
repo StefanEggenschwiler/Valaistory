@@ -121,8 +121,8 @@ public class DatabaseAccess {
         HistoricImage image5 = new HistoricImage();
         image5.setDescription("Village de Champery");
         image5.setUrl("http://photo.memovs.ch/008ph/008phj/008ph-00216.jpg");
-        image5.setLongitude(7.54017502d);
-        image5.setLatitude(46.28292819d);
+        image5.setLongitude(7.53917500d);
+        image5.setLatitude(46.28292810d);
 
         writeImage(image5);
     }

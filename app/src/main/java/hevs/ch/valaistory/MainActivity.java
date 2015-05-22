@@ -122,6 +122,7 @@ public class MainActivity extends FragmentActivity {
                     if(img.getLatitude() == marker.getPosition().latitude && img.getLongitude() == marker.getPosition().longitude) {
                         Intent i = new Intent(getApplicationContext(), DetailsActivity.class);
                         i.putExtra("imageUrl", img.getUrl());
+                        i.putExtra("imageDesc", img.getDescription());
                         startActivity(i);
                     }
                 }
