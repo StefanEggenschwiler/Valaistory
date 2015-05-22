@@ -20,6 +20,7 @@ import hevs.ch.database.DatabaseAccess;
 import hevs.ch.database.HistoricImage;
 import hevs.ch.session.NoGPSDialog;
 import hevs.ch.session.Session;
+import hevs.ch.valaistory.controller.DetailsActivity;
 
 public class MainActivity extends FragmentActivity {
 
@@ -120,7 +121,7 @@ public class MainActivity extends FragmentActivity {
             public boolean onMarkerClick(Marker marker) {
                 for (HistoricImage img : images) {
                     if(img.getLatitude() == marker.getPosition().latitude && img.getLongitude() == marker.getPosition().longitude) {
-                        Intent i = new Intent(getApplicationContext(), TestParseXMLActivity.class);
+                        Intent i = new Intent(getApplicationContext(), DetailsActivity.class);
                         i.putExtra("imageUrl", img.getUrl());
                         startActivity(i);
                     }

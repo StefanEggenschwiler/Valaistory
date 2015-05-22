@@ -32,15 +32,19 @@ public class SQLHelper extends SQLiteOpenHelper {
     // Championship_user
     public static final String TABLE_CREATE_IMAGE = "CREATE TABLE IF NOT EXISTS "
             + TABLE_NAME_IMAGE + "(" +
-            IMAGE_ID + " INTEGER PRIMARY KEY," +
+            IMAGE_ID + " INTEGER PRIMARY KEY, " +
             IMAGE_LONGITUDE + " DOUBLE, " +
             IMAGE_LATITUDE + " DOUBLE, " +
-            IMAGE_URL + "TEXT," +
-            IMAGE_Description + "TEXT" +
+            IMAGE_URL + " TEXT, " +
+            IMAGE_Description + " TEXT " +
             ")";
 
     public SQLHelper(Context context, SQLiteDatabase.CursorFactory factory) {
         super(context, DATABASE_NAME, factory, DATABASE_VERSION);
+    }
+
+    public SQLHelper(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override

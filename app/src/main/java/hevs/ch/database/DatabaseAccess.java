@@ -26,7 +26,7 @@ public class DatabaseAccess {
     }
 
     private void openConnection(){
-        helper = new SQLHelper(context, null);
+        helper = new SQLHelper(context);
         database = helper.getWritableDatabase();
 
 
@@ -49,6 +49,7 @@ public class DatabaseAccess {
         values.put(SQLHelper.IMAGE_LONGITUDE, image.getLongitude());
         values.put(SQLHelper.IMAGE_LATITUDE, image.getLatitude());
         values.put(SQLHelper.IMAGE_URL, image.getUrl());
+        values.put(SQLHelper.IMAGE_Description, image.getDescription());
 
         id = database.insert(SQLHelper.TABLE_NAME_IMAGE, null, values);
         close();
@@ -80,13 +81,14 @@ public class DatabaseAccess {
             cursor.moveToNext();
         }
         cursor.close();
+        close();
 
         return images;
     }
 
     public void writeSomeDummyData(){
         HistoricImage image1 = new HistoricImage();
-        image1.setDescription("Construction d'un batiment a Viege");
+        image1.setDescription("Construction dun batiment a Viege");
         image1.setUrl("http://photo.memovs.ch/009ph/009phj/009ph-00038.jpg");
         image1.setLongitude(7.53948838d);
         image1.setLatitude(46.28252409d);
@@ -94,7 +96,7 @@ public class DatabaseAccess {
         writeImage(image1);
 
         HistoricImage image2 = new HistoricImage();
-        image2.setDescription("Ancien hopital bourgeoisial, Sion");
+        image2.setDescription("Ancien hopital bourgeoisial Sion");
         image2.setUrl("http://photo.memovs.ch/008ph/008phj/008ph-00356.jpg");
         image2.setLongitude(7.53869981d);
         image2.setLatitude(46.28243882d);
@@ -102,7 +104,7 @@ public class DatabaseAccess {
         writeImage(image2);
 
         HistoricImage image3 = new HistoricImage();
-        image3.setDescription("Chapelle, Ayent");
+        image3.setDescription("Chapelle Ayent");
         image3.setUrl("http://photo.memovs.ch/008ph/008phj/008ph-00870.jpg");
         image3.setLongitude(7.53873736d);
         image3.setLatitude(46.28298751d);
@@ -110,7 +112,7 @@ public class DatabaseAccess {
         writeImage(image3);
 
         HistoricImage image4 = new HistoricImage();
-        image4.setDescription("Hotel Central, Martigny");
+        image4.setDescription("Hotel Central Martigny");
         image4.setUrl("http://photo.memovs.ch/008ph/008phj/008ph-00402.jpg");
         image4.setLongitude(7.54017502d);
         image4.setLatitude(46.28292819d);
