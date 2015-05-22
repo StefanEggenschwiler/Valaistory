@@ -1,9 +1,12 @@
 package hevs.ch.valaistory.controller;
 
+import android.app.Fragment;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 
 import hevs.ch.valaistory.R;
 
@@ -13,6 +16,12 @@ public class DetailsActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
+
+        Intent intent = getIntent();
+        String url = intent.getStringExtra("imageUrl");
+
+        ImageView image = (ImageView) findViewById(R.id.imageView);
+        new ImageDownloader(image).execute(url);
     }
 
     @Override

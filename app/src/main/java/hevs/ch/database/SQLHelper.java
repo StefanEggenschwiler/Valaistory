@@ -9,6 +9,8 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class SQLHelper extends SQLiteOpenHelper {
 
+    private Context context;
+
     // DB settings
     private static final String DATABASE_NAME = "valaistory.db";
     private static final int DATABASE_VERSION = 1;
@@ -44,6 +46,7 @@ public class SQLHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(TABLE_CREATE_IMAGE);
+
     }
 
     @Override
