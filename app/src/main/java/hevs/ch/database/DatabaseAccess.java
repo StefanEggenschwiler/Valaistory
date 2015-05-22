@@ -86,7 +86,7 @@ public class DatabaseAccess {
 
     public void writeSomeDummyData(){
         HistoricImage image1 = new HistoricImage();
-        image1.setDescription("Construction d'un bâtiment à Viège");
+        image1.setDescription("Construction d'un batiment a Viege");
         image1.setUrl("http://photo.memovs.ch/009ph/009phj/009ph-00038.jpg");
         image1.setLongitude(7.53948838d);
         image1.setLatitude(46.28252409d);
@@ -94,7 +94,7 @@ public class DatabaseAccess {
         writeImage(image1);
 
         HistoricImage image2 = new HistoricImage();
-        image2.setDescription("Ancien hôpital bourgeoisial, Sion");
+        image2.setDescription("Ancien hopital bourgeoisial, Sion");
         image2.setUrl("http://photo.memovs.ch/008ph/008phj/008ph-00356.jpg");
         image2.setLongitude(7.53869981d);
         image2.setLatitude(46.28243882d);
@@ -110,7 +110,7 @@ public class DatabaseAccess {
         writeImage(image3);
 
         HistoricImage image4 = new HistoricImage();
-        image4.setDescription("Hôtel Central, Martigny");
+        image4.setDescription("Hotel Central, Martigny");
         image4.setUrl("http://photo.memovs.ch/008ph/008phj/008ph-00402.jpg");
         image4.setLongitude(7.54017502d);
         image4.setLatitude(46.28292819d);
@@ -118,7 +118,7 @@ public class DatabaseAccess {
         writeImage(image4);
 
         HistoricImage image5 = new HistoricImage();
-        image5.setDescription("Village de Champéry");
+        image5.setDescription("Village de Champery");
         image5.setUrl("http://photo.memovs.ch/008ph/008phj/008ph-00216.jpg");
         image5.setLongitude(7.54017502d);
         image5.setLatitude(46.28292819d);
