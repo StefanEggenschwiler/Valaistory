@@ -8,7 +8,7 @@ import android.location.LocationManager;
 import android.os.Binder;
 import android.os.IBinder;
 
-import hevs.ch.Session.Session;
+import hevs.ch.session.Session;
 import hevs.ch.valaistory.R;
 
 
