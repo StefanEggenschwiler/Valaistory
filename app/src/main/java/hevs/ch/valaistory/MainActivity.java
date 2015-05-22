@@ -1,5 +1,6 @@
 package hevs.ch.valaistory;
 
+import android.content.Intent;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -102,5 +103,16 @@ public class MainActivity extends FragmentActivity {
 
     private void setUpDummyMarker() {
         mMap.addMarker(new MarkerOptions().position(new LatLng(46.28276878, 7.53949642)).title("Marker"));
+
+
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                Intent i = new Intent(getApplicationContext(), TestParseXMLActivity.class); // <<<<---------
+                startActivity(i);
+                return false;
+            }
+        });
+
     }
 }
