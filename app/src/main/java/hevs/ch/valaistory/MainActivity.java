@@ -11,8 +11,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import hevs.ch.Session.NoGPSDialog;
-import hevs.ch.Session.Session;
+import hevs.ch.session.NoGPSDialog;
+import hevs.ch.session.Session;
 
 public class MainActivity extends FragmentActivity {
 
